@@ -19,7 +19,7 @@ const authenticator = async () => {
       const errorText = await response.text();
 
       throw new Error(
-        `Request failed with status ${response.status}: ${errorText} `,
+        `Request failed with status ${response.status}: ${errorText} `
       );
     }
 
@@ -38,7 +38,7 @@ const ImageUpload = ({
 }: {
   onFileChange: (filePath: string) => void;
 }) => {
-  const ikUploadRef = useRef(null);
+  const ikUploadRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<{ filePath: string } | null>(null);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,6 +51,7 @@ const ImageUpload = ({
       variant: "destructive",
     });
   };
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSuccesss = (res: any) => {
     setFile(res);
@@ -81,8 +82,6 @@ const ImageUpload = ({
           e.preventDefault();
 
           if (ikUploadRef.current) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             ikUploadRef.current?.click();
           }
         }}
