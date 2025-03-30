@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react"; // Adjust the import path if necessary
 import { auth } from "@/auth";
+import { Analytics } from "@vercel/analytics/next";
 
 const ibmPlexSans = localFont({
   src: [
@@ -42,6 +43,7 @@ export default async function RootLayout({
         <body className={`${ibmPlexSans.className} ${bebasNeue.variable}`}>
           {children}
           <Toaster />
+          <Analytics />
         </body>
       </SessionProvider>
     </html>
