@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react"; // Adjust the import path if necessary
 import { auth } from "@/auth";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const ibmPlexSans = localFont({
   src: [
@@ -44,6 +45,7 @@ export default async function RootLayout({
           {children}
           <Toaster />
           <Analytics />
+          <SpeedInsights />
         </body>
       </SessionProvider>
     </html>
