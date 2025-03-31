@@ -2,8 +2,7 @@ import { db } from "@/app/database/drizzle";
 import { usersTable } from "@/app/database/schema";
 import { serve } from "@upstash/workflow/nextjs";
 import { eq } from "drizzle-orm";
-import emailjs from '@emailjs/browser';
-import config from "@/lib/config";
+import { sendEmail } from "@/lib/workflow";
 
 type InitialData = {
   email: string;
@@ -60,27 +59,3 @@ export const { POST } = serve<InitialData>(async (context) => {
       await context.sleep("wait-for-1-month", 60 * 60 * 24 * 30);
     }
   });
-
-
-async function sendEmail({email, message, subject}: {email: string; message: string; subject: string}) {
-  
-  const templateParams = {
-  email: email,
-    message: message,
-  subject: subject,
-};
-
-  emailjs.init({
-  publicKey: config.env.emailjs.publicKey,
-  blockHeadless: true,
-});
-  // Implement email sending logic here
-  emailjs.send(config.env.emailjs.serviceId, config.env.emailjs.templateId, templateParams).then(
-    (response) => {
-      console.log('SUCCESS!', response.status, response.text);
-    },
-    (error) => {
-      console.log('FAILED...', error);
-    },
-  );
-}
