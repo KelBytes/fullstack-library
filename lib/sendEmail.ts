@@ -1,12 +1,6 @@
-"use client";
-
 import emailjs from '@emailjs/browser';
 import config from "@/lib/config";
 
-
-emailjs.init({
-  publicKey: config.env.emailjs.publicKey,
-});
 
 export async function sendEmail({ email, message, subject }: { email: string; message: string; subject: string }) {
   

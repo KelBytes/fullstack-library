@@ -3,6 +3,8 @@ import { usersTable } from "@/app/database/schema";
 import { serve } from "@upstash/workflow/nextjs";
 import { eq } from "drizzle-orm";
 import { sendEmail } from "@/lib/sendEmail";
+import emailjs from '@emailjs/browser';
+import config from "@/lib/config";
 
 type InitialData = {
   email: string;
@@ -30,6 +32,10 @@ const getUserState = async (email: string): Promise<UserState> => {
 
   return "active"; // Default return statement
 };
+
+emailjs.init({
+  publicKey: config.env.emailjs.publicKey,
+});
 
 export const { POST } = serve<InitialData>(async (context) => {
   const { email, fullName } = context.requestPayload;
