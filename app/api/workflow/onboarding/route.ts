@@ -2,7 +2,7 @@ import { db } from "@/app/database/drizzle";
 import { usersTable } from "@/app/database/schema";
 import { serve } from "@upstash/workflow/nextjs";
 import { eq } from "drizzle-orm";
-import { sendEmail } from "@/lib/workflow";
+import { sendEmail } from "@/lib/sendEmail";
 
 type InitialData = {
   email: string;
