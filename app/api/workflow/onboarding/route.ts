@@ -2,9 +2,7 @@ import { db } from "@/app/database/drizzle";
 import { usersTable } from "@/app/database/schema";
 import { serve } from "@upstash/workflow/nextjs";
 import { eq } from "drizzle-orm";
-import { sendEmail } from "@/lib/sendEmail";
-import emailjs from '@emailjs/browser';
-import config from "@/lib/config";
+import { sendEmail } from "@/lib/workflow";
 
 type InitialData = {
   email: string;
@@ -33,16 +31,13 @@ const getUserState = async (email: string): Promise<UserState> => {
   return "active"; // Default return statement
 };
 
-emailjs.init({
-  publicKey: config.env.emailjs.publicKey,
-});
 
 export const { POST } = serve<InitialData>(async (context) => {
   const { email, fullName } = context.requestPayload;
 
   //Welcome Email
   await context.run("new-signup", async () => {
-    await sendEmail({ email, message: `Welcome ${fullName}!`, subject: "Welcome to our service!" });
+    await sendEmail({ email, message: `Welcome ${fullName}!`, subject: "We are glad to have you onboard!" });
     });
     
     await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);
@@ -58,7 +53,7 @@ export const { POST } = serve<InitialData>(async (context) => {
         });
       } else if (state === "active") {
         await context.run("send-email-active", async () => {
-          await sendEmail({ email, message: "BookWise is glad you're back", subject: "Welcome" });
+          await sendEmail({ email, message: "Glad to see you again", subject: "Welcome" });
         });
       }
 
