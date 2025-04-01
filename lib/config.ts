@@ -14,11 +14,6 @@ const config = {
       qstashUrl: process.env.QSTASH_URL!,
       qstashToken: process.env.QSTASH_TOKEN!,
     },
-    emailjs: {
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
-      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-    },
     brevo: {
       masterPassword: process.env.BREVO_SMTP_MASTER_PASSWORD!,
       brevoLogin: process.env.BREVO_SMTP_LOGIN!,

@@ -16,7 +16,7 @@ export const POST = async (request: Request) => {
     const { email, message, subject } = await request.json();
     try {
         await transporter.sendMail({
-            from: "BookWise", // sender address
+            from: "kelvinkwasi.dev@gmail.com", // sender address
             to: email, // list of receivers
             subject: subject, // Subject line
             text: message, // plain text body

@@ -26,7 +26,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
       return; // Exit early if no user is found
     }
 
-    if (user[0]?.lastActivityDate === new Date().toISOString().slice(0, 10))
+    if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10))
       return;
 
     await db
