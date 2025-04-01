@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
@@ -21,10 +22,10 @@ export const POST = async (request: Request) => {
         });
     
 
-        return { success: true, message: "Email sent successfully" };
+        return NextResponse.json({success: true, message: "Email sent successfully"});
     }
     catch (error) {
         console.error("Error sending email:", error);
-        return { success: false, message: "Error sending email" };
+       return NextResponse.json({success: false, message: "Email sending failed"});
     }
 }
