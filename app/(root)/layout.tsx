@@ -21,7 +21,12 @@ const layout = async ({ children }: { children: ReactNode }) => {
       .where(eq(usersTable.id, session?.user?.id))
       .limit(1);
 
-    if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10))
+    if (!user || user.length === 0) {
+      console.error("User not found in database.");
+      return; // Exit early if no user is found
+    }
+
+    if (user[0]?.lastActivityDate === new Date().toISOString().slice(0, 10))
       return;
 
     await db

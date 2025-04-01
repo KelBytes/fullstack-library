@@ -40,7 +40,7 @@ export const signUp = async (params: AuthCredentials) => {
       universityCard,
     });
 
-    await workflowClient.trigger({
+   await workflowClient.trigger({
       url: `${config.env.productionApiEndpoint}/api/workflow/onboarding`,
       body: {
         email,
