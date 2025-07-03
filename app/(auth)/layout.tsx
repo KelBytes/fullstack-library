@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
-const layout = async ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   if (session) redirect("/");
@@ -34,4 +34,4 @@ const layout = async ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;

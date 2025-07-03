@@ -5,7 +5,7 @@ import { signInWithCredentials } from "@/lib/actions/auth";
 import { signInSchema } from "@/lib/validations";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <AuthForm
       type="SIGN_IN"
@@ -19,4 +19,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

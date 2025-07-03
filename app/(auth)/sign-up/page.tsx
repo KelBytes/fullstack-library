@@ -5,7 +5,7 @@ import { signUp } from "@/lib/actions/auth";
 import { signUpSchema } from "@/lib/validations";
 import React from "react";
 
-const page = () => {
+const Page = () => {
   return (
     <AuthForm
       type="SIGN_UP"
@@ -22,4 +22,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

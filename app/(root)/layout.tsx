@@ -7,7 +7,7 @@ import { db } from "@/app/database/drizzle";
 import { usersTable } from "@/app/database/schema";
 import { eq } from "drizzle-orm";
 
-const layout = async ({ children }: { children: ReactNode }) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   if (!session) redirect("/sign-in");
@@ -15,16 +15,12 @@ const layout = async ({ children }: { children: ReactNode }) => {
   //get the user and see if the last activity date is today
   after(async () => {
     if (!session?.user?.id) return;
+
     const user = await db
       .select()
       .from(usersTable)
       .where(eq(usersTable.id, session?.user?.id))
       .limit(1);
-
-    if (!user || user.length === 0) {
-      console.error("User not found in database.");
-      return; // Exit early if no user is found
-    }
 
     if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10))
       return;
@@ -38,7 +34,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
   return (
     <main className="root-container">
       <div className="mx-auto max-w-7xl">
-        <Header session={session} />
+        <Header />
 
         <div className="mt-20 pb-20">{children}</div>
       </div>
@@ -46,4 +42,4 @@ const layout = async ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;

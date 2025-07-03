@@ -321,3 +321,31 @@ export const FIELD_TYPES = {
   universityId: "number",
   password: "password",
 };
+
+export const adminSideBarLinks = [
+  {
+    img: "/icons/admin/home.svg",
+    route: "/admin",
+    text: "Home",
+  },
+  {
+    img: "/icons/admin/users.svg",
+    route: "/admin/users",
+    text: "All Users",
+  },
+  {
+    img: "/icons/admin/book.svg",
+    route: "/admin/books",
+    text: "All Books",
+  },
+  {
+    img: "/icons/admin/bookmark.svg",
+    route: "/admin/borrow-records",
+    text: "Borrow Records",
+  },
+  {
+    img: "/icons/admin/user.svg",
+    route: "/admin/account-requests",
+    text: "Account Requests",
+  },
+];
