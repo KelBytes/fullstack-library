@@ -23,14 +23,14 @@ const BookOverview = async ({
   userId,
   id,
 }: Props) => {
-  const [user] = await db
+  const user = await db
     .select()
     .from(usersTable)
     .where(eq(usersTable.id, userId))
     .limit(1);
 
   const borrowingEligibility = {
-    isEligible: availableCopies > 0 && user.status === "APPROVED",
+    isEligible: availableCopies > 0 && user[0]?.status === "APPROVED",
     message:
       availableCopies <= 0
         ? "Book is not available"
