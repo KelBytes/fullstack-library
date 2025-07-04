@@ -23,14 +23,14 @@ const BookOverview = async ({
   userId,
   id,
 }: Props) => {
-  const user = await db
+  const [user] = await db
     .select()
     .from(usersTable)
     .where(eq(usersTable.id, userId))
     .limit(1);
 
   const borrowingEligibility = {
-    isEligible: availableCopies > 0 && user[0]?.status === "APPROVED",
+    isEligible: availableCopies > 0 && user?.status === "APPROVED",
     message:
       availableCopies <= 0
         ? "Book is not available"
@@ -69,11 +69,13 @@ const BookOverview = async ({
 
         <p className="book-description">{description}</p>
 
-        <BorrowBook
-          bookId={id}
-          userId={userId}
-          borrowingEligibility={borrowingEligibility}
-        />
+        {user && (
+          <BorrowBook
+            bookId={id}
+            userId={userId}
+            borrowingEligibility={borrowingEligibility}
+          />
+        )}
       </div>
 
       <div className="relative flex flex-1 justify-center">
