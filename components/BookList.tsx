@@ -5,10 +5,11 @@ interface Props {
   title: string;
   books: Book[];
   containerClassName?: string;
+  minLength: number;
 }
 
-const BookList = ({ title, books, containerClassName }: Props) => {
-  if (books.length < 2) return;
+const BookList = ({ title, books, containerClassName, minLength }: Props) => {
+  if (books.length < minLength) return;
   return (
     <section className={containerClassName}>
       <h2 className="font-bebas-neue text-light-100 text-4xl">{title}</h2>

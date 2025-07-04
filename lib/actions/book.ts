@@ -24,7 +24,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
 
     const dueDate = dayjs().add(7, "day").toDate().toDateString();
 
-    const record = db.insert(borrowRecords).values({
+    await db.insert(borrowRecords).values({
       userId,
       bookId,
       dueDate,
@@ -38,7 +38,6 @@ export const borrowBook = async (params: BorrowBookParams) => {
 
     return {
       success: true,
-      data: JSON.parse(JSON.stringify(record)),
     };
   } catch (error) {
     console.log(error);
