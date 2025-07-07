@@ -6,9 +6,16 @@ interface Props {
   books: Book[];
   containerClassName?: string;
   minLength: number;
+  isLoanedBook: boolean;
 }
 
-const BookList = ({ title, books, containerClassName, minLength }: Props) => {
+const BookList = ({
+  title,
+  books,
+  containerClassName,
+  minLength,
+  isLoanedBook,
+}: Props) => {
   if (books.length < minLength) return;
   return (
     <section className={containerClassName}>
@@ -16,7 +23,7 @@ const BookList = ({ title, books, containerClassName, minLength }: Props) => {
 
       <ul className="book-list">
         {books.map((book) => (
-          <BookCard key={book.title} {...book} />
+          <BookCard key={book.title} {...book} isLoanedBook={isLoanedBook} />
         ))}
       </ul>
     </section>

@@ -2,6 +2,7 @@ import { db } from "@/app/database/drizzle";
 import { books, borrowRecords } from "@/app/database/schema";
 import { auth } from "@/auth";
 import BookList from "@/components/BookList";
+import ProfileCard from "@/components/ProfileCard";
 import { eq } from "drizzle-orm";
 import React from "react";
 
@@ -34,9 +35,23 @@ const Page = async () => {
     .where(eq(borrowRecords.userId, session?.user?.id))) as Book[];
 
   return (
-    <>
-      <BookList title="BORROWED BOOKS" books={borrowedBooks} minLength={1} />
-    </>
+    <div className="flex max-md:flex-col gap-16">
+      <ProfileCard session={session} />
+      <div className="flex-1 flex">
+        {borrowedBooks.length > 0 ? (
+          <BookList
+            title="BORROWED BOOKS"
+            books={borrowedBooks}
+            minLength={1}
+            isLoanedBook={true}
+          />
+        ) : (
+          <p className="text-white text-4xl font-bold uppercase">
+            BORROWED BOOKS (0)
+          </p>
+        )}
+      </div>
+    </div>
   );
 };
 
