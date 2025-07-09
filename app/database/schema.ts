@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -7,6 +8,7 @@ import {
   pgEnum,
   date,
   timestamp,
+  index,
 } from "drizzle-orm/pg-core";
 
 export const STATUS_ENUM = pgEnum("status", [
@@ -33,21 +35,34 @@ export const usersTable = pgTable("users", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
-export const books = pgTable("books", {
-  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
-  title: varchar("title", { length: 255 }).notNull(),
-  author: varchar("author", { length: 255 }).notNull(),
-  genre: text("genre").notNull(),
-  rating: integer("rating").notNull().default(1),
-  coverUrl: text("cover_url").notNull(),
-  coverColor: varchar("cover_color", { length: 7 }).notNull(),
-  videoUrl: text("video_url").notNull(),
-  description: text("description").notNull(),
-  totalCopies: integer("total_copies").notNull().default(1),
-  availableCopies: integer("available_copies").notNull().default(1),
-  summary: text("summary").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-});
+export const books = pgTable(
+  "books",
+  {
+    id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+    title: varchar("title", { length: 255 }).notNull(),
+    author: varchar("author", { length: 255 }).notNull(),
+    genre: text("genre").notNull(),
+    rating: integer("rating").notNull().default(1),
+    coverUrl: text("cover_url").notNull(),
+    coverColor: varchar("cover_color", { length: 7 }).notNull(),
+    videoUrl: text("video_url").notNull(),
+    description: text("description").notNull(),
+    totalCopies: integer("total_copies").notNull().default(1),
+    availableCopies: integer("available_copies").notNull().default(1),
+    summary: text("summary").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("search_index").using(
+      "gin",
+      sql`(
+      setweight(to_tsvector('english', ${table.title}), 'A') ||
+      setweight(to_tsvector('english', ${table.author}), 'B') ||
+      setweight(to_tsvector('english', ${table.genre}), 'C')
+      )`
+    ),
+  ]
+);
 
 export const borrowRecords = pgTable("borrow_records", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),

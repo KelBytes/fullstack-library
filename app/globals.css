@@ -101,7 +101,7 @@
 
   /* Borrowed Book */
   .borrowed-book {
-    @apply gradient-vertical p-5 rounded-2xl xs:w-min w-full relative;
+    @apply gradient-vertical p-5 rounded-2xl w-full relative;
   }
 
   .borrowed-book_cover {
@@ -130,8 +130,21 @@
   }
 
   /* Book List */
-  .book-list {
+  /* .book-list {
     @apply mt-10 flex flex-wrap gap-5 max-xs:justify-between xs:gap-10;
+  } */
+
+  .book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    row-gap: 24px;
+
+    @media (min-width: 480px) {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  .borrowed-book_list {
   }
 
   .book-btn {
@@ -190,7 +203,7 @@
   }
 
   .search-input {
-    @apply w-full border-none font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none !important;
+    @apply w-full border-none font-bold placeholder:font-normal text-white placeholder:text-light-100 focus-visible:ring-0 focus-visible:shadow-none bg-transparent !important;
   }
 
   /* Book Receipt */

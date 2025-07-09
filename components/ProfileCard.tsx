@@ -20,7 +20,10 @@ const ProfileCard = async ({ session }: { session: Session }) => {
     .limit(1);
 
   return (
-    <div className="max-h-[60rem] gradient-vertical mx-auto flex max-w-xl flex-col gap-12 pt-32 rounded-3xl p-10 text-white">
+    <div className="relative max-h-[60rem] gradient-vertical mx-auto flex max-w-xl flex-col gap-12 pt-32 rounded-3xl px-10 py-10 text-white max-xs:px-9">
+      <div className="absolute -top-3 flex items-center justify-center w-full right-0 left-0">
+        <Image src={"/icons/mark.svg"} alt="mark" width={50} height={80} />
+      </div>
       <div className="flex gap-4 items-center">
         <div className="h-20 w-20 bg-[#333c5c] bg-opacity-20 rounded-full items-center justify-center flex">
           <Avatar className="h-16 w-16">

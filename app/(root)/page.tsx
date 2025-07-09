@@ -23,6 +23,7 @@ const Home = async () => {
         books={latestBooks.slice(1)}
         containerClassName="mt-28"
         minLength={2}
+        isLoanedBook={false}
       />
     </>
   );

@@ -15,6 +15,27 @@
       "when": 1751583110451,
       "tag": "0001_complex_prima",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752069197903,
+      "tag": "0002_vengeful_lord_hawal",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752071885275,
+      "tag": "0003_pretty_blackheart",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1752072506002,
+      "tag": "0004_jittery_eddie_brock",
+      "breakpoints": true
     }
   ]
 }
