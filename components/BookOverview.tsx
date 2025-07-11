@@ -5,6 +5,7 @@ import BorrowBook from "@/components/BorrowBook";
 import { db } from "@/app/database/drizzle";
 import { eq } from "drizzle-orm";
 import { usersTable } from "@/app/database/schema";
+import Link from "next/link";
 
 interface Props extends Book {
   userId: string;
@@ -79,22 +80,24 @@ const BookOverview = async ({
       </div>
 
       <div className="relative flex flex-1 justify-center">
-        <div className="relative">
-          <BookCover
-            variant="wide"
-            className="z-10"
-            coverColor={coverColor}
-            coverImage={coverUrl}
-          />
-
-          <div className="absolute left-16 top-10 rotate-12 opacity-40 max-sm:hidden">
+        <Link href={`/books/${id}`}>
+          <div className="relative">
             <BookCover
               variant="wide"
+              className="z-10"
               coverColor={coverColor}
               coverImage={coverUrl}
             />
+
+            <div className="absolute left-16 top-10 rotate-12 opacity-40 max-sm:hidden">
+              <BookCover
+                variant="wide"
+                coverColor={coverColor}
+                coverImage={coverUrl}
+              />
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     </section>
   );

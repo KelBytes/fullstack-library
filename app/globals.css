@@ -145,6 +145,7 @@
   }
 
   .borrowed-book_list {
+    column-gap: 24px;
   }
 
   .book-btn {
