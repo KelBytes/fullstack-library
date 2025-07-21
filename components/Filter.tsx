@@ -32,6 +32,7 @@ const Filter = () => {
         handleFilter(value);
       }}
       defaultValue={params.get("filter") || ""}
+      value={params.get("filter") || "none"}
     >
       <SelectTrigger className="select-trigger">
         <p className="text-white font-light">Filter by:</p>

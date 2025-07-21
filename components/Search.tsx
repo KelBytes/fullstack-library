@@ -12,9 +12,9 @@ const Search = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { searchTerm, setSearchTerm } = useSearchContext();
+  const params = new URLSearchParams(searchParams);
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
     if (term) {
       params.set("query", term);
     } else {
@@ -51,6 +51,29 @@ const Search = () => {
         }}
         value={searchTerm}
       />
+
+      <button
+        onClick={() => {
+          setSearchTerm("");
+          params.delete("query");
+          replace(`${pathname}?${params.toString()}`);
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="white"
+          className="size-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 18 18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
     </div>
   );
 };

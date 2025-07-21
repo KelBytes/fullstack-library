@@ -49,14 +49,15 @@ const BorrowBook = ({
       } else {
         toast({
           title: "Error",
-          description: "An error occured while borrowing the book",
+          description: `${result.error}`,
           variant: "destructive",
         });
       }
     } catch (error) {
       toast({
         title: `Error ${error} `,
-        description: "An error occured while borrowing the book",
+        description:
+          "An error occured while borrowing the book, try again later",
         variant: "destructive",
       });
     } finally {
