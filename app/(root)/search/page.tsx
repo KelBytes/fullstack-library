@@ -40,36 +40,15 @@ const page = async ({
     .limit(12);
   //limit the books returned to 12
 
-  switch (filter) {
-    case "title":
-      searchBookResults = await db
-        .select()
-        .from(books)
-        .where(
-          sql`(to_tsvector('english', ${books.title}) @@ websearch_to_tsquery('english', ${query}))`
-        );
-      break;
-    case "genre":
-      searchBookResults = await db
-        .select()
-        .from(books)
-        .where(
-          sql`(to_tsvector('english', ${books.genre}) @@ websearch_to_tsquery('english', ${query}))`
-        );
-      break;
-    case "author":
-      searchBookResults = await db
-        .select()
-        .from(books)
-        .where(
-          sql`(to_tsvector('english', ${books.author}) @@ websearch_to_tsquery('english', ${query}))`
-        );
-      break;
-
-    default:
-      break;
-  }
   if (filter) {
+    searchBookResults = await db
+      .select()
+      .from(books)
+      .where(
+        sql`(to_tsvector('english', ${
+          books[filter as keyof typeof books]
+        }) @@ websearch_to_tsquery('english', ${query}))`
+      );
   }
 
   return (
