@@ -7,8 +7,10 @@ import { db } from "@/app/database/drizzle";
 import { books } from "@/app/database/schema";
 
 const Home = async () => {
+  //Get the authentication state of the user
   const session = await auth();
 
+  //Query the database for the first 11 books
   const latestBooks = (await db
     .select()
     .from(books)

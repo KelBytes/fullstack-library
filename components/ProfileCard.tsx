@@ -13,6 +13,7 @@ const ProfileCard = async ({ session }: { session: Session }) => {
     return <div>You must be logged in to view your profile</div>;
   }
 
+  //Get one student or user from the database whose id matches the currently user signed in id
   const [student] = await db
     .select()
     .from(usersTable)

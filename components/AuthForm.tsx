@@ -42,11 +42,13 @@ const AuthForm = <T extends FieldValues>({
   const router = useRouter();
   const isSignIn = type === "SIGN_IN";
 
+  //function for controlling and validating the form
   const form: UseFormReturn<T> = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
+  //Submit the form data to the sign in handler to authenticate the user
   const handleSubmit: SubmitHandler<T> = async (data) => {
     const result = await onSubmit(data);
     if (result.success) {
@@ -57,7 +59,7 @@ const AuthForm = <T extends FieldValues>({
           : " Account created successfully",
         variant: "default",
       });
-
+      //if user is succesfully authenticated, automatically redirect to home page
       router.push("/");
     } else {
       toast({
@@ -83,6 +85,11 @@ const AuthForm = <T extends FieldValues>({
           onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-6 w-full"
         >
+          {/*
+          Iterate over the field values provided by 
+          the caller of the component and populate 
+          the form with the fields 
+          */}
           {Object.keys(defaultValues).map((field) => (
             <FormField
               key={field}

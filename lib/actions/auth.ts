@@ -8,7 +8,7 @@ import { headers } from "next/headers";
 import ratelimit from "@/lib/ratelimit";
 import { redirect } from "next/navigation";
 import { workflowClient } from "@/lib/workflow";
-import  config  from "@/lib/config";
+import config from "@/lib/config";
 
 export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, universityId, password, universityCard } = params;
@@ -27,9 +27,9 @@ export const signUp = async (params: AuthCredentials) => {
 
   if (existingUser.length > 0) {
     return { success: false, error: "User already exists" };
-  }
+  } //Check if the user exists in the database and return an error
 
-  const hashedPassword = await hash(password, 10);
+  const hashedPassword = await hash(password, 10); //Scramble the user's password to prevent hackers from reading it
 
   try {
     await db.insert(usersTable).values({
@@ -38,16 +38,15 @@ export const signUp = async (params: AuthCredentials) => {
       universityId,
       password: hashedPassword,
       universityCard,
-    });
+    }); //Create a new user
 
-   await workflowClient.trigger({
+    await workflowClient.trigger({
       url: `${config.env.productionApiEndpoint}/api/workflow/onboarding`,
       body: {
         email,
         fullName,
       },
-    }
-    );
+    }); //Trigger the onboarding
 
     await signInWithCredentials({ email, password });
 
@@ -59,7 +58,7 @@ export const signUp = async (params: AuthCredentials) => {
 };
 
 export const signInWithCredentials = async (
-  params: Pick<AuthCredentials, "email" | "password">,
+  params: Pick<AuthCredentials, "email" | "password">
 ) => {
   const { email, password } = params;
 

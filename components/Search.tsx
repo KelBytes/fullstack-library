@@ -4,14 +4,16 @@ import Image from "next/image";
 import { Input } from "./ui/input";
 import { useDebouncedCallback } from "use-debounce";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchContext } from "./SearchContextProvider";
+import { useEffect } from "react";
 
 const Search = () => {
   const { replace } = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { searchTerm, setSearchTerm } = useSearchContext();
 
   const handleSearch = useDebouncedCallback((term: string) => {
-    console.log(term);
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set("query", term);
@@ -19,8 +21,17 @@ const Search = () => {
       params.delete("query");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`); //Set the link query parameter to the user's search term in the input field
   }, 300);
+
+  /*
+  1. Only run when the page first loads.
+  2. If the page address contains a search query in its link update the input field with that query
+  */
+  useEffect(() => {
+    setSearchTerm(searchParams.get("query")?.toString() ?? "");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="search">
@@ -36,8 +47,9 @@ const Search = () => {
         placeholder="Search for a book"
         onChange={(e) => {
           handleSearch(e.target.value);
+          setSearchTerm(e.target.value);
         }}
-        defaultValue={searchParams.get("query")?.toString()}
+        value={searchTerm}
       />
     </div>
   );

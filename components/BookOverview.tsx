@@ -24,12 +24,14 @@ const BookOverview = async ({
   userId,
   id,
 }: Props) => {
+  //get a single user from the database that matches the currently signed in user's id
   const [user] = await db
     .select()
     .from(usersTable)
     .where(eq(usersTable.id, userId))
     .limit(1);
 
+  //Check if the user is eligible to borrow
   const borrowingEligibility = {
     isEligible: availableCopies > 0 && user?.status === "APPROVED",
     message:
@@ -70,6 +72,7 @@ const BookOverview = async ({
 
         <p className="book-description">{description}</p>
 
+        {/*If the user is not signed do not display the borrow book button */}
         {user && (
           <BorrowBook
             bookId={id}

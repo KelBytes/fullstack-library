@@ -9,10 +9,12 @@ import { db } from "@/app/database/drizzle";
 import { eq } from "drizzle-orm";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
+  //If you are not signed in redirect to sign in page to prevent unauthorised access
   const session = await auth();
 
   if (!session?.user?.id) redirect("/sign-in");
 
+  //check if the currently signed in user has admin priveleges
   const isAdmin = await db
     .select({ isAdmin: usersTable.ROLE })
     .from(usersTable)
@@ -20,6 +22,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
     .limit(1)
     .then((res) => res[0]?.isAdmin === "ADMIN");
 
+  //If the currently signed in user does not have admin priveleges redirect to the home page
   if (!isAdmin) redirect("/");
 
   return (

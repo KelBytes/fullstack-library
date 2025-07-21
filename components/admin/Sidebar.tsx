@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Session } from "next-auth";
 
 const Sidebar = ({ session }: { session: Session }) => {
-  const pathname = usePathname();
+  const pathname = usePathname(); //store the current link of the page in the pathname variable
   return (
     <div className="admin-sidebar">
       <div>

@@ -15,7 +15,7 @@ const Page = async () => {
         It seems like you&apos;ve made too many requests in a short period of
         time. Please try again later.
       </p>
-
+      {/*if the user is authenticated, the button takes them back to the home page else the sign in page */}
       <Link href={session ? "/" : "/sign-in"} className="mt-5">
         <Button className="font-bold">Go Back</Button>
       </Link>

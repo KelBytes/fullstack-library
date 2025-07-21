@@ -4,8 +4,10 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
+  //get authentication state of the user
   const session = await auth();
 
+  //Check if user is signed in, if not redirect to home page
   if (session) redirect("/");
 
   return (

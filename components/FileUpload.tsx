@@ -13,9 +13,10 @@ const {
   },
 } = config;
 
+//Check if the client is authorised to upload an image
 const authenticator = async () => {
   try {
-    const response = await fetch(`${config.env.apiEndpoint}/api/imagekit`);
+    const response = await fetch(`${config.env.apiEndpoint}/api/imagekit`); //get the authentication state of the client
     if (!response.ok) {
       const errorText = await response.text();
 
@@ -77,7 +78,7 @@ const FileUpload = ({
       description: `We couldn't upload your image. Please try again.`,
       variant: "destructive",
     });
-  };
+  }; //Display a message if the user could not upload an image
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onSuccesss = (res: any) => {
@@ -90,6 +91,7 @@ const FileUpload = ({
     });
   };
 
+  //Check the file size of the user to ensure it doesnt go past a certain limit to avoid load on the server
   const onValidate = (file: File) => {
     if (type === "image") {
       if (file.size > 20 * 1024 * 1024) {

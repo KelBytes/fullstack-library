@@ -25,8 +25,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const isPasswordValid = await compare(
           credentials.password.toString(),
-          user[0].password,
-        );
+          user[0].password
+        ); //compare the entered password to the scrambled or encrypted password
 
         if (!isPasswordValid) return null;
 

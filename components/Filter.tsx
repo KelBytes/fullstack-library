@@ -10,16 +10,24 @@ import {
 const Filter = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[160px] bg-[#232839] border-none text-primary font-bold font-ibm-plex-sans">
+      <SelectTrigger className="select-trigger">
         <p className="text-white font-light">Filter by:</p>
         <SelectValue placeholder="None" />
       </SelectTrigger>
-      <SelectContent className="text-white border-none bg-[#232839]">
+      <SelectContent className="select-content">
         <SelectGroup>
-          <SelectItem value="none">None</SelectItem>
-          <SelectItem value="title">Title</SelectItem>
-          <SelectItem value="dark">Genre</SelectItem>
-          <SelectItem value="system">Author</SelectItem>
+          <SelectItem value="none" className="select-item">
+            None
+          </SelectItem>
+          <SelectItem value="title" className="select-item">
+            Title
+          </SelectItem>
+          <SelectItem value="genre" className="select-item">
+            Genre
+          </SelectItem>
+          <SelectItem value="author" className="select-item">
+            Author
+          </SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>

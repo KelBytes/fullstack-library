@@ -8,15 +8,19 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  //Get the unique id of the book from the page link
   const { id } = await params;
+  //Get user authentication state
   const session = await auth();
 
+  //Query the database for the book details and store it in an object with key value pairs
   const [bookDetails] = await db
     .select()
     .from(books)
     .where(eq(books.id, id))
     .limit(1);
 
+  //If the database is queried and there are no books with the unique id, redirect to a not-found page
   if (!bookDetails) redirect("/404");
   return (
     <>
@@ -34,6 +38,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <h3>Summary</h3>
 
             <div className="space-y-5 text-xl text-light-100">
+              {/*Arrange the summary of the book into multiple lines */}
               {bookDetails.summary.split("\n").map((line, i) => (
                 <p key={i}>{line}</p>
               ))}

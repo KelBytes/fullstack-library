@@ -10,6 +10,9 @@ import { eq } from "drizzle-orm";
 const Layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
+  /*check if the user is properly authenticated and redirect 
+  to the sign in page if not preventing unauthorised access
+   */
   if (!session) redirect("/sign-in");
 
   //get the user and see if the last activity date is today
@@ -24,9 +27,11 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 
     if (!user || user.length === 0 || !user[0]) return;
 
+    //if the last activity date is today do nothing
     if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10))
       return;
 
+    //update the user's lastActivityDate
     await db
       .update(usersTable)
       .set({ lastActivityDate: new Date().toISOString().slice(0, 10) })

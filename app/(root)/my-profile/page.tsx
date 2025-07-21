@@ -8,6 +8,7 @@ import { eq } from "drizzle-orm";
 import React from "react";
 
 const Page = async () => {
+  //Get user authentication state and store it in variable session
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -15,6 +16,7 @@ const Page = async () => {
     return <div>You must be logged in to view your borrowed books.</div>;
   }
 
+  //Query the database table "borrowRecords" whilst comparing the user id to get the user's borrowed books
   const borrowedBooks = (await db
     .select({
       id: books.id,

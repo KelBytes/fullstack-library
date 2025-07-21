@@ -29,12 +29,12 @@ export const borrowBook = async (params: BorrowBookParams) => {
       bookId,
       dueDate,
       status: "BORROWED",
-    });
+    }); //Insert the borrowed book with the user that borrowed it into the borrowRecords table
 
     await db
       .update(books)
       .set({ availableCopies: book[0].availableCopies - 1 })
-      .where(eq(books.id, bookId));
+      .where(eq(books.id, bookId)); //update the number of available books
 
     return {
       success: true,
