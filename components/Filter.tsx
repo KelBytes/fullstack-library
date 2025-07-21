@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Select,
   SelectContent,
@@ -6,10 +8,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const Filter = () => {
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+
+  const handleFilter = (filter: string) => {
+    if (filter != "none") {
+      params.set("filter", filter);
+    } else {
+      params.delete("filter");
+    }
+
+    replace(`${pathname}?${params.toString()}`);
+  };
+
   return (
-    <Select>
+    <Select
+      onValueChange={(value: string) => {
+        handleFilter(value);
+      }}
+      defaultValue={params.get("filter") || ""}
+    >
       <SelectTrigger className="select-trigger">
         <p className="text-white font-light">Filter by:</p>
         <SelectValue placeholder="None" />

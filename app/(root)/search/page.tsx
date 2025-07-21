@@ -12,10 +12,11 @@ import { SearchContextProvider } from "@/components/SearchContextProvider";
 const page = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ query?: string; page?: string }>;
+  searchParams: Promise<{ query?: string; filter?: string }>;
 }) => {
   const searchParameters = await searchParams;
   const query = searchParameters?.query || "";
+  const filter = searchParameters?.filter;
   //const currentPage = Number(searchParameters?.page) || 1;
 
   /*Query the database using the search parameters in the link
@@ -26,7 +27,7 @@ const page = async ({
    and reducing latency
    */
 
-  const searchBookResults = await db
+  let searchBookResults = await db
     .select()
     .from(books)
     .where(
@@ -38,6 +39,38 @@ const page = async ({
     )
     .limit(12);
   //limit the books returned to 12
+
+  switch (filter) {
+    case "title":
+      searchBookResults = await db
+        .select()
+        .from(books)
+        .where(
+          sql`(to_tsvector('english', ${books.title}) @@ websearch_to_tsquery('english', ${query}))`
+        );
+      break;
+    case "genre":
+      searchBookResults = await db
+        .select()
+        .from(books)
+        .where(
+          sql`(to_tsvector('english', ${books.genre}) @@ websearch_to_tsquery('english', ${query}))`
+        );
+      break;
+    case "author":
+      searchBookResults = await db
+        .select()
+        .from(books)
+        .where(
+          sql`(to_tsvector('english', ${books.author}) @@ websearch_to_tsquery('english', ${query}))`
+        );
+      break;
+
+    default:
+      break;
+  }
+  if (filter) {
+  }
 
   return (
     <SearchContextProvider>
