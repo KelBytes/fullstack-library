@@ -4,6 +4,7 @@ import { db } from "@/app/database/drizzle";
 import { books, borrowRecords } from "@/app/database/schema";
 import { eq, and } from "drizzle-orm";
 import dayjs from "dayjs";
+import { revalidatePath } from "next/cache";
 
 export const borrowBook = async (params: BorrowBookParams) => {
   const { userId, bookId } = params;
@@ -50,6 +51,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
       .set({ availableCopies: book[0].availableCopies - 1 })
       .where(eq(books.id, bookId)); //update the number of available books
 
+    revalidatePath("/admin");
     return {
       success: true,
     };

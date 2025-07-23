@@ -32,6 +32,7 @@ const BorrowBook = ({
         description: message,
         variant: "destructive",
       });
+      return;
     } //if the user is not eligible to borrow, display an error message
 
     setBorrowing(true);
