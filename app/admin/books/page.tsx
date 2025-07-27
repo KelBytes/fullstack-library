@@ -1,3 +1,4 @@
+import DataTable from "@/components/admin/DataTable";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
@@ -15,7 +16,7 @@ const Page = () => {
       </div>
 
       <div className="mt-7 overflow-hidden w-full">
-        <p>Table</p>
+        <DataTable />
       </div>
     </section>
   );

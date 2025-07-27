@@ -128,6 +128,26 @@
     @apply text-xs text-dark-200;
   }
 
+  th,
+  td {
+    padding: 1rem;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  table {
+    position: relative;
+    border-collapse: collapse;
+  }
+
+  td {
+    border-bottom: 1px solid #ddd;
+  }
+
   /* Color Picker */
   .color-picker {
     @apply flex min-h-14 flex-row items-center gap-3 rounded-md border border-gray-100 bg-light-600 p-4 text-base font-semibold text-dark-400;
@@ -201,4 +221,9 @@
   .user-card .email {
     @apply text-light-500 text-sm line-clamp-1 break-words w-full;
   }
+}
+
+th {
+  text-align: left;
+  font-weight: lighter;
 }

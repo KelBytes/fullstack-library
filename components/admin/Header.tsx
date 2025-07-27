@@ -1,5 +1,7 @@
 import { Session } from "next-auth";
 import React from "react";
+import { Input } from "../ui/input";
+import Image from "next/image";
 
 const Header = ({ session }: { session: Session }) => {
   return (
@@ -11,7 +13,19 @@ const Header = ({ session }: { session: Session }) => {
         </p>
       </div>
 
-      <p>Search</p>
+      <div className="admin-search">
+        <Image
+          src={"/icons/admin/search.svg"}
+          width={28}
+          height={28}
+          alt="search"
+        />
+
+        <Input
+          className="admin-search_input"
+          placeholder="Search users, books by title, author, or genre."
+        />
+      </div>
     </header>
   );
 };

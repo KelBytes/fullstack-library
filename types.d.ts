@@ -40,3 +40,7 @@ interface BorrowBookParams {
   bookId: string;
   userId: string;
 }
+
+interface deleteBookParams {
+  bookId: string;
+}

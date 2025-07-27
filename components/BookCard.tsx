@@ -25,7 +25,7 @@ const BookCard = ({
         <div
           className={cn(
             isLoanedBook &&
-              `w-full h-full flex justify-center items-center rounded-2xl p-4`
+              `w-full h-full flex justify-center items-center rounded-2xl py-4 lg:px-16 px-10`
           )}
           style={{ backgroundColor: lightCoverColor }}
         >
