@@ -44,8 +44,9 @@ const BookForm = ({ type, ...book }: Props) => {
       videoUrl: "",
       summary: "",
     },
-  });
+  }); //Define form schema
 
+  //Handle submitted form values and call createBook server action with data
   const onSubmit = async (data: z.infer<typeof bookSchema>) => {
     const result = await createBook(data);
 

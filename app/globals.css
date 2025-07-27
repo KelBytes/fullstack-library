@@ -146,6 +146,12 @@
 
   .borrowed-book_list {
     column-gap: 24px;
+    @media (min-width: 1000px) {
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    }
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
   }
 
   .book-btn {
@@ -251,11 +257,11 @@
   }
 
   #not-found p {
-    @apply text-light-100 w-[360px] mt-1;
+    @apply text-light-100 sm:w-[360px] mt-1;
   }
 
   .not-found-btn {
-    @apply bg-primary font-bebas-neue min-w-[360px] mt-6 text-dark-100 text-xl hover:bg-primary/90 min-h-12 !important;
+    @apply bg-primary font-bebas-neue sm:min-w-[360px] mt-6 text-dark-100 text-xl hover:bg-primary/90 min-h-12 !important;
   }
 
   /* Pagination */

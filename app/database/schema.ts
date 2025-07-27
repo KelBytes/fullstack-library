@@ -11,16 +11,18 @@ import {
   index,
 } from "drizzle-orm/pg-core";
 
+//Possible values for student auth status
 export const STATUS_ENUM = pgEnum("status", [
   "PENDING",
   "APPROVED",
   "REJECTED",
 ]);
-export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN"]);
+
+export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN"]); //possible values for user role
 export const BORROW_STATUS_ENUM = pgEnum("borrow_status", [
   "RETURNED",
   "BORROWED",
-]);
+]); //Borrow status
 
 export const usersTable = pgTable("users", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
@@ -33,7 +35,7 @@ export const usersTable = pgTable("users", {
   ROLE: ROLE_ENUM("role").default("USER"),
   lastActivityDate: date("last_activity_date").defaultNow(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-});
+}); //Data definition for users
 
 export const books = pgTable(
   "books",
@@ -62,7 +64,7 @@ export const books = pgTable(
       )`
     ),
   ]
-);
+); //data definition for books
 
 export const borrowRecords = pgTable("borrow_records", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
@@ -79,4 +81,4 @@ export const borrowRecords = pgTable("borrow_records", {
   returnDate: date("return_date"),
   status: BORROW_STATUS_ENUM("status").default("BORROWED").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-});
+}); //Data definition for borrow records

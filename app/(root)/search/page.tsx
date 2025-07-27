@@ -85,7 +85,7 @@ const page = async ({
             containerClassName=""
           />
         ) : (
-          <div id="not-found">
+          <section id="not-found" className="">
             <Image
               src={"/images/no-books.png"}
               width={200}
@@ -98,7 +98,7 @@ const page = async ({
               different keywords or check for typos.
             </p>
             <ClearSearchButton />
-          </div>
+          </section>
         )}
       </div>
     </SearchContextProvider>

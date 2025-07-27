@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 
 const Page = async () => {
+  //Get user login status
   const session = await auth();
 
   return (

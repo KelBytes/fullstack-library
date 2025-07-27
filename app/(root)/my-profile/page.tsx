@@ -3,6 +3,7 @@ import { books, borrowRecords } from "@/app/database/schema";
 import { auth } from "@/auth";
 import BookList from "@/components/BookList";
 import ProfileCard from "@/components/ProfileCard";
+import { cn } from "@/lib/utils";
 import { eq } from "drizzle-orm";
 
 import React from "react";
@@ -38,15 +39,27 @@ const Page = async () => {
     .where(eq(borrowRecords.userId, session?.user?.id))) as Book[];
 
   return (
-    <div className="flex max-md:flex-col gap-16">
+    <div
+      className={cn(
+        (borrowedBooks.length > 2 || borrowedBooks.length < 1) && "flex-col",
+        "flex max-md:flex-col gap-16"
+      )}
+    >
       <ProfileCard session={session} />
-      <div className="flex-1 flex">
+      <div
+        className={cn(
+          "flex-1 flex w-full ",
+          borrowedBooks.length > 2 &&
+            "md:min-w-[40rem] lg:min-w-[50rem] xl:min-w-[70rem] 2xl:min-w-[80rem] max-w-[80rem]"
+        )}
+      >
         {borrowedBooks.length > 0 ? (
           <BookList
             title="BORROWED BOOKS"
             books={borrowedBooks}
             minLength={1}
             isLoanedBook={true}
+            containerClassName="w-full"
           />
         ) : (
           <p className="text-white text-4xl font-bold uppercase">

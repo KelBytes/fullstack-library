@@ -58,7 +58,8 @@ const FileUpload = ({
   const [file, setFile] = useState<{ filePath: string | null }>({
     filePath: value ?? null,
   });
-  const [progress, setProgress] = useState(0);
+
+  const [progress, setProgress] = useState(0); //State variable to track file upload progress
 
   const styles = {
     button:

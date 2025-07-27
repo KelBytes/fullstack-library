@@ -13,23 +13,23 @@ import config from "@/lib/config";
 export const signUp = async (params: AuthCredentials) => {
   const { fullName, email, universityId, password, universityCard } = params;
 
-  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1";
-  const { success } = await ratelimit.limit(ip);
+  const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1"; //Get user's ip address
+  const { success } = await ratelimit.limit(ip); //Check if user is spamming the server
   if (!success) {
-    return redirect("/too-many-requests");
+    return redirect("/too-many-requests"); //if there are too many requests within 1 minute redirect the user to a page to cool off
   }
 
   const existingUser = await db
     .select()
     .from(usersTable)
     .where(eq(usersTable.email, email))
-    .limit(1);
+    .limit(1); //Get the user from the database
 
   if (existingUser.length > 0) {
     return { success: false, error: "User already exists" };
   } //Check if the user exists in the database and return an error
 
-  const hashedPassword = await hash(password, 10); //Scramble the user's password to prevent hackers from reading it
+  const hashedPassword = await hash(password, 10); //Encrypt the user's password to prevent hackers from reading it
 
   try {
     await db.insert(usersTable).values({
@@ -38,7 +38,7 @@ export const signUp = async (params: AuthCredentials) => {
       universityId,
       password: hashedPassword,
       universityCard,
-    }); //Create a new user
+    }); //Create a new user and insert into the database
 
     await workflowClient.trigger({
       url: `${config.env.productionApiEndpoint}/api/workflow/onboarding`,
@@ -73,7 +73,7 @@ export const signInWithCredentials = async (
       email,
       password,
       redirect: false,
-    });
+    }); //call signin server action to handle authentication
 
     if (result?.error) {
       return { success: false, error: result.error };

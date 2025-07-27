@@ -17,6 +17,7 @@ const Filter = () => {
   const params = new URLSearchParams(searchParams);
 
   const handleFilter = (filter: string) => {
+    //If filter is not delete search params
     if (filter != "none") {
       params.set("filter", filter);
     } else {

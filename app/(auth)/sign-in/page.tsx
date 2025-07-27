@@ -17,6 +17,6 @@ const Page = () => {
       onSubmit={signInWithCredentials}
     />
   );
-};
+}; //This component handles the sign in ui
 
 export default Page;

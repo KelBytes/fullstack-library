@@ -12,9 +12,9 @@ export const createBook = async (params: BookParams) => {
         ...params,
         availableCopies: params.totalCopies,
       })
-      .returning();
+      .returning(); //Insert the new book into the database
 
-    revalidatePath("/");
+    revalidatePath("/"); //revalidate the home page to not use data from cache
     return {
       success: true,
       data: JSON.parse(JSON.stringify(newBook[0])),

@@ -8,13 +8,13 @@ const Page = async () => {
   const [borrowedBooks] = await db
     .select({ count: count() })
     .from(borrowRecords)
-    .where(eq(borrowRecords.status, "BORROWED"));
+    .where(eq(borrowRecords.status, "BORROWED")); //get the number of borrowed books from the database
 
-  const [totalUsers] = await db.select({ count: count() }).from(usersTable);
+  const [totalUsers] = await db.select({ count: count() }).from(usersTable); //Get the total number of users
 
   const [totalBooks] = await db
     .select({ count: sum(books.totalCopies) })
-    .from(books);
+    .from(books); //Get the total number of books
 
   return (
     <div>

@@ -4,4 +4,4 @@ import config from "@/lib/config";
 
 const sql = neon(config.env.databaseUrl);
 export const db = drizzle({ client: sql });
-//configure drizzle orm
+//configure drizzle orm to connect to neon postgres instance

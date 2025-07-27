@@ -50,6 +50,8 @@ const Header = ({ session }: { session: Session }) => {
                 width={20}
                 height={20}
               />
+
+              <span>Logout</span>
             </Button>
           </form>
         </li>

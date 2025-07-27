@@ -8,4 +8,4 @@ const redis = new Redis({
 
 export default redis;
 
-//configure our redis caching database
+//configure our redis caching database for rate limiting

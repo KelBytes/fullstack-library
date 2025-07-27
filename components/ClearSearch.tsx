@@ -8,10 +8,12 @@ export const ClearSearchButton = () => {
   const { replace } = useRouter();
   const pathname = usePathname();
   const { setSearchTerm } = useSearchContext();
+
   const handleSearch = () => {
     setSearchTerm("");
     replace(`${pathname}`);
-  };
+  }; //Handle clearing search field and search params
+
   return (
     <Button
       className="not-found-btn"

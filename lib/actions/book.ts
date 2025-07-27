@@ -14,7 +14,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
       .select({ availableCopies: books.availableCopies, id: books.id })
       .from(books)
       .where(eq(books.id, bookId))
-      .limit(1);
+      .limit(1); //get the book the user is trying to borrow from the database
 
     const isBorrowed = await db
       .select()
@@ -28,7 +28,7 @@ export const borrowBook = async (params: BorrowBookParams) => {
         success: false,
         error: "You have already borrowed this book.",
       };
-    }
+    } //Have the user already borrowed the book
 
     if (!book.length || book[0].availableCopies <= 0) {
       return {
