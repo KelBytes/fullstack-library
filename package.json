@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:gen": "npx drizzle-kit generate",
-    "db:migrate": "npx drizzle-kit migrate"
+    "db:migrate": "npx drizzle-kit migrate",
+    "seed": "npx tsx ./app/database/seed.ts"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

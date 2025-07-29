@@ -28,7 +28,7 @@ const BookList = ({
 
       <ul className={cn(isLoanedBook && "borrowed-book_list", "book-list")}>
         {books.map((book) => (
-          <BookCard key={book.title} {...book} isLoanedBook={isLoanedBook} />
+          <BookCard key={book.id} {...book} isLoanedBook={isLoanedBook} />
         ))}
       </ul>
     </section>

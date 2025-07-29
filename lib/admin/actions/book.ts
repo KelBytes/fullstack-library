@@ -30,6 +30,8 @@ export const deleteBook = async (params: deleteBookParams) => {
   try {
     await db.delete(books).where(eq(books.id, params.bookId));
 
+    revalidatePath("/");
+
     return {
       success: true,
       message: "Book has been successfully deleted",
@@ -39,6 +41,33 @@ export const deleteBook = async (params: deleteBookParams) => {
     return {
       success: false,
       message: "An error occured while deleting the book",
+    };
+  }
+};
+
+export const updateBook = async (params: BookParams, id?: string) => {
+  try {
+    if (!id) {
+      throw new Error("Book id is required for update");
+    }
+    const updatedBook = await db
+      .update(books)
+      .set({ ...params })
+      .where(eq(books.id, id))
+      .returning();
+
+    revalidatePath("/");
+
+    return {
+      success: true,
+      message: "Book has been successfully updated",
+      data: JSON.parse(JSON.stringify(updatedBook[0])),
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "An error occured while updating the book",
     };
   }
 };

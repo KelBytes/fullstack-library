@@ -133,17 +133,6 @@
     padding: 1rem;
   }
 
-  th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-
-  table {
-    position: relative;
-    border-collapse: collapse;
-  }
-
   td {
     border-bottom: 1px solid #ddd;
   }
@@ -226,4 +215,8 @@
 th {
   text-align: left;
   font-weight: lighter;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  @apply bg-light-300;
 }

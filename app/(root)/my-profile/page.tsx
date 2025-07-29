@@ -42,7 +42,7 @@ const Page = async () => {
     <div
       className={cn(
         (borrowedBooks.length > 2 || borrowedBooks.length < 1) && "flex-col",
-        "flex max-md:flex-col gap-16"
+        "flex max-md:flex-col gap-16 md:gap-8"
       )}
     >
       <ProfileCard session={session} />

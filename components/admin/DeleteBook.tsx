@@ -38,7 +38,7 @@ const DeleteBook = ({ id }: { id: string }) => {
       }}
     >
       <Image src={"/icons/admin/trash.svg"} alt="edit" width={20} height={20} />
-      <span>Del</span>
+      <span>Delete</span>
     </Button>
   );
 };

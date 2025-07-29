@@ -26,7 +26,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   if (!isAdmin) redirect("/");
 
   return (
-    <main className="flex min-h-screen w-full flex-row">
+    <main className="flex min-h-screen w-full flex-row overflow-hidden">
       <Sidebar session={session} />
 
       <div className="admin-container">
