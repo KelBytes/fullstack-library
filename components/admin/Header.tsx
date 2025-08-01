@@ -2,12 +2,17 @@ import { Session } from "next-auth";
 import React from "react";
 import { Input } from "../ui/input";
 import Image from "next/image";
+import LogOut from "./LogOut";
 
 const Header = ({ session }: { session: Session }) => {
   return (
     <header className="admin-header">
       <div>
-        <h2>{session?.user?.name}</h2>
+        <div className="flex items-center gap-3">
+          <h2>{session?.user?.name}</h2>
+          <LogOut />
+        </div>
+
         <p className="text-base text-slate-500">
           Monitor your library, manage books, and more.
         </p>

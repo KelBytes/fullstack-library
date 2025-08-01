@@ -16,7 +16,9 @@ const Page = () => {
       </div>
 
       <div className="mt-7 overflow-hidden w-full">
-        <DataTable />
+        <DataTable
+          fields={["Book Title", "Author", "Genre", "Date Created", "Action"]}
+        />
       </div>
     </section>
   );

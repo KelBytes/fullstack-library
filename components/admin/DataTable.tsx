@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 import DeleteBook from "./DeleteBook";
 import Link from "next/link";
 
-const DataTable = async () => {
+const DataTable = async ({ fields }: { fields: Array<string> }) => {
   const allBooks = await db.select().from(books);
 
   return (
@@ -14,11 +14,9 @@ const DataTable = async () => {
       <table className="w-full">
         <thead>
           <tr className="bg-light-300">
-            <th className="">Book Title</th>
-            <th className="">Author</th>
-            <th className="">Genre</th>
-            <th className="">Date Created</th>
-            <th className="">Action</th>
+            {fields.map((field) => (
+              <th key={field}>{field}</th>
+            ))}
           </tr>
         </thead>
         <tbody>
