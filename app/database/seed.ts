@@ -32,11 +32,17 @@ const uploadToImageKit = async (
   } catch (error) {
     console.error("Error uploading image to ImageKit:", error);
   }
-};
+}; // This function uploads an image to ImageKit and returns the file path.
+// It uses the ImageKit SDK to upload the image from a URL and returns the file path
+// after successful upload. If there's an error, it logs the error to the console.
 
 const seed = async () => {
   console.log("Seeding data...");
-
+  // This function seeds the database with dummy book data.
+  // It uploads the cover and video URLs to ImageKit and inserts the book data into the database
+  // using the Drizzle ORM. It logs success or error messages to the console.
+  // Loop through each book in the dummyBooks array and upload the cover and video URLs to ImageKit
+  // and insert the book data into the database
   try {
     for (const book of dummyBooks) {
       const coverUrl = (await uploadToImageKit(

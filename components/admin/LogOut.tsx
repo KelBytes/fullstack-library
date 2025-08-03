@@ -7,7 +7,9 @@ const LogOut = () => {
     <form
       action={async () => {
         "use server";
-        await signOut();
+        await signOut(); // Sign out the user
+        // The signOut function is expected to handle the sign-out process,
+        // such as clearing the session and redirecting the user to the sign-in page.
       }}
       className="hover:cursor-pointer"
     >

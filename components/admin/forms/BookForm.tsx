@@ -23,13 +23,24 @@ import ColorPicker from "../ColorPicker";
 import { createBook, updateBook } from "@/lib/admin/actions/book";
 import { toast } from "@/hooks/use-toast";
 
+// This file defines the BookForm component used for creating or updating book details.
 interface Props extends Partial<Book> {
   type?: "create" | "update";
 }
 
+// The BookForm component accepts a type prop to determine if it's for creating or updating a book.
+// It also accepts various book properties as props to pre-fill the form fields when updating a book
 const BookForm = ({ type, ...book }: Props) => {
   const router = useRouter();
 
+  // Initialize the form with the book schema and default values based on the book prop
+  // If the type is "create", it initializes with empty values, otherwise it uses the book details
+  // The form uses zod for validation through the zodResolver
+  // The form fields include title, author, genre, rating, totalCopies, coverUrl, coverColor, description, videoUrl, and summary
+  // Each field is rendered with appropriate input types and validation messages
+  // The form submission is handled by the onSubmit function, which calls the createBook or updateBook server actions based on the type prop
+  // If the submission is successful, it redirects to the book details page with a success message
+  // If there's an error, it displays an error message using the toast component
   const form = useForm<z.infer<typeof bookSchema>>({
     resolver: zodResolver(bookSchema),
     defaultValues: {

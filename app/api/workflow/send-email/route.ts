@@ -13,7 +13,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-//This function handles POST request to the api by sending the email to the user
+// This route handles sending emails.
+// It uses nodemailer to send an email with the provided email, subject, and message.
+// The email is sent using the transporter configured with Brevo SMTP settings.
+// It returns a JSON response indicating success or failure of the email sending operation.
+// The POST method is used to handle the email sending request.
 export const POST = async (request: Request) => {
   const { email, message, subject } = await request.json();
   try {

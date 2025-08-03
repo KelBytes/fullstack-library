@@ -7,6 +7,15 @@ import { auth } from "@/auth";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
+// This file is the root layout of the application.
+// It imports global styles, local fonts, and various components for notifications and analytics.
+// The `metadata` object defines the title and description of the application.
+// The `RootLayout` component wraps the application in a session provider and includes the main content.
+// It also includes the Toaster component for displaying notifications, Analytics for tracking user interactions,
+// and SpeedInsights for performance monitoring.
+// The local fonts are imported using the `localFont` function, which allows for custom fonts to be used throughout the application.
+// The `RootLayout` component is exported as the default export of the module.
+
 const ibmPlexSans = localFont({
   src: [
     { path: "/fonts/IBMPlexSans-Regular.ttf", weight: "400", style: "normal" },

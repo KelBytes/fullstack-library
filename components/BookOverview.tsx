@@ -6,9 +6,11 @@ import { db } from "@/app/database/drizzle";
 import { eq } from "drizzle-orm";
 import { usersTable } from "@/app/database/schema";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface Props extends Book {
   userId: string;
+  admin?: boolean;
 }
 
 const BookOverview = async ({
@@ -23,6 +25,7 @@ const BookOverview = async ({
   rating,
   userId,
   id,
+  admin = false,
 }: Props) => {
   //get a single user from the database that matches the currently signed in user's id
   const [user] = await db
@@ -43,16 +46,30 @@ const BookOverview = async ({
   return (
     <section className="book-overview">
       <div className="flex flex-1 flex-col gap-5">
-        <h1>{title}</h1>
+        <h1
+          className={cn(
+            !admin ? "text-white text-5xl font-semibold md:text-7xl" : "",
+            "text-black text-5xl font-semibold md:text-7xl"
+          )}
+        >
+          {title}
+        </h1>
 
-        <div className="book-info">
+        <div className={cn("book-info", admin && "text-black")}>
           <p>
-            By <span className="font-semibold text-light-200">{author}</span>
+            By <span className={"font-semibold text-light-200"}>{author}</span>
           </p>
 
           <p>
             Category{" "}
-            <span className="font-semibold text-light-200">{genre}</span>
+            <span
+              className={cn(
+                admin && "text-black",
+                "font-semibold text-light-200"
+              )}
+            >
+              {genre}
+            </span>
           </p>
 
           <div className="flex flex-row gap-1">
@@ -62,7 +79,7 @@ const BookOverview = async ({
         </div>
 
         <div className="book-copies">
-          <p>
+          <p className={cn(admin && "text-black")}>
             Total Books: <span>{totalCopies}</span>
           </p>
           <p>
@@ -70,10 +87,12 @@ const BookOverview = async ({
           </p>
         </div>
 
-        <p className="book-description">{description}</p>
+        <p className={cn(admin && "text-black", "book-description")}>
+          {description}
+        </p>
 
         {/*If the user is not signed do not display the borrow book button */}
-        {user && (
+        {!admin && (
           <BorrowBook
             bookId={id}
             userId={userId}

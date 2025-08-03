@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
 
+// This file is part of the admin books page.
+// It imports the DataTable component and the Button component from the UI library.
+// The Page component renders a section with a title and a button to add a new book.
+// The DataTable component is used to display a list of books with specific fields.
 const Page = () => {
   return (
     <section className="w-full rounded-2xl bg-white p-7">

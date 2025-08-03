@@ -14,8 +14,7 @@ const Home = async () => {
   const latestBooks = (await db
     .select()
     .from(books)
-    .limit(11)
-    .orderBy(desc(books.createdAt))) as Book[];
+    .orderBy(desc(books.createdAt))) as Book[];// Type assertion to Book[]
   return (
     <>
       <BookOverview {...latestBooks[0]} userId={session?.user?.id as string} />

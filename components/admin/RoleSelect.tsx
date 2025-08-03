@@ -14,6 +14,14 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+// This component allows an admin to change a user's role between "ADMIN" and "USER".
+// It uses a select dropdown to choose the role and calls the changeUserRole action when the role is changed.
+// The component also handles loading state and displays success or error messages using the toast notification system.
+// The role is passed as a prop, and the userId is used to identify which user's role is being changed.
+// The component is designed to be used in an admin interface where user roles can be managed.
+// The Select component is used to create a dropdown menu for selecting the user's role.
+// The SelectTrigger and SelectContent components are used to style the dropdown, and the SelectItem
+// components are used to define the options available in the dropdown.
 const RoleSelect = ({
   role,
   userId,
@@ -21,7 +29,16 @@ const RoleSelect = ({
   role: "ADMIN" | "USER";
   userId: string;
 }) => {
-  const router = useRouter();
+  const router = useRouter(); // Initialize the router for navigation
+  // This state is used to manage the loading state of the role change operation.
+  // When the role is being changed, this state is set to true to disable the select
+  // and show a loading indicator. Once the operation is complete, it is set back to false.
+
+  // The updateUserRole function is called when the user selects a new role from the dropdown
+  // It calls the changeUserRole action with the userId and the new role.
+  // If the operation is successful, it shows a success toast message;
+  // otherwise, it shows an error toast message.
+  // After the operation, it redirects the user to the "/admin/users" page.
   const [isLoading, setIsLoading] = useState(false);
   const updateUserRole = async (id: string, userRole: "ADMIN" | "USER") => {
     setIsLoading(true);

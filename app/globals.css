@@ -166,9 +166,9 @@
     @apply flex flex-col-reverse items-center gap-12 sm:gap-32 xl:flex-row xl:gap-8;
   }
 
-  .book-overview h1 {
-    @apply text-5xl font-semibold text-white md:text-7xl;
-  }
+  /* .book-overview h1 {
+    @apply text-5xl font-semibold md:text-7xl;
+  } */
 
   .book-info {
     @apply mt-7 flex flex-row flex-wrap gap-4 text-xl text-light-100;

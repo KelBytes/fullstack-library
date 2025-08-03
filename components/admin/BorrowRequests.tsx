@@ -7,6 +7,21 @@ import { eq } from "drizzle-orm";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { getInitials } from "@/lib/utils";
 
+// This component displays borrow requests in a table format.
+// It fetches borrow requests from the database, including book details and user information.
+// Each row includes a link to the book details, user information, borrow status, dates,
+// and a button to generate a report or perform an action related to the borrow request.
+// The component is designed to be used in the admin section of the application.
+// It accepts an array of fields to display in the table header.
+// The borrow requests are displayed in a scrollable table with appropriate styling.
+// The component uses the Avatar component to display user initials and the BookCover component for book covers
+// The table includes columns for book title, user information, borrow status, dates, and actions
+
+// This component fetches borrow requests from the database and displays them in a table format.
+// It uses the `db` instance to query the database and retrieve borrow records along with associated
+// book and user details. The results are then rendered in a table with appropriate styling.
+// The component is designed to be used in the admin section of the application, specifically for managing
+// borrow requests. It accepts a `fields` prop to define the table headers dynamically.
 const BorrowRequests = async ({ fields }: { fields: Array<string> }) => {
   const borrowRequests = await db
     .select({
@@ -69,7 +84,11 @@ const BorrowRequests = async ({ fields }: { fields: Array<string> }) => {
                     <div>
                       <Avatar>
                         <AvatarFallback className="bg-amber-100">
-                          {getInitials(userRequestedName || "IN")}
+                          {
+                            getInitials(
+                              userRequestedName || "IN"
+                            ).toUpperCase() /* Get initials from user name*/
+                          }
                         </AvatarFallback>
                       </Avatar>
                     </div>

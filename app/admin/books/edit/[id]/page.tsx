@@ -7,12 +7,13 @@ import Link from "next/link";
 import React from "react";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const bookId = (await params).id;
+  const bookId = (await params).id; // Get the unique id of the book from the page link
+  // Query the database for the book details using the unique id
   const [book] = await db
     .select()
     .from(books)
     .where(eq(books.id, bookId))
-    .limit(1);
+    .limit(1); // Type assertion to Book[]
   return (
     <>
       <Button asChild className="back-btn">

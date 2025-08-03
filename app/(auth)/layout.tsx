@@ -4,10 +4,13 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
 const Layout = async ({ children }: { children: ReactNode }) => {
-  //get authentication state of the user
+  // This layout component is used for the authentication pages.
+  // It checks if the user is authenticated and redirects them to the home page if they are.
   const session = await auth();
 
-  //Check if user is signed in, if not redirect to home page
+  //if user is authenticated, redirect to home page
+  //this prevents authenticated users from accessing the auth pages
+  //this is useful for preventing authenticated users from accessing the sign-in and sign-up pages
   if (session) redirect("/");
 
   return (

@@ -36,7 +36,7 @@ const Page = async () => {
     })
     .from(borrowRecords)
     .leftJoin(books, eq(books.id, borrowRecords.bookId))
-    .where(eq(borrowRecords.userId, session?.user?.id))) as Book[];
+    .where(eq(borrowRecords.userId, session?.user?.id))) as Book[]; // Type assertion to Book[]
 
   return (
     <div

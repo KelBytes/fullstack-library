@@ -9,6 +9,10 @@ import RoleSelect from "./RoleSelect";
 import DeleteUser from "./DeleteUser";
 
 const UserTable = async ({ fields }: { fields: Array<string> }) => {
+  // Fetch all users from the database along with their borrow records count
+  // The usersTable is joined with borrowRecords to get the number of books borrowed by each user
+  // The result is grouped by user id to get the count of borrow records for each user
+  // The fields parameter is used to dynamically render the table headers
   const allUsers = await db
     .select({
       id: usersTable.id,

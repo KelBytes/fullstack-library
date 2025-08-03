@@ -1,6 +1,9 @@
 import BorrowRequests from "@/components/admin/BorrowRequests";
 import React from "react";
 
+// This file is part of the admin borrow records page.
+// It imports the BorrowRequests component to display borrow requests.
+// The Page component renders a section with a title and the BorrowRequests component.
 const Page = () => {
   return (
     <section className="w-full rounded-2xl bg-white p-7">

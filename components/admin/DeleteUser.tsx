@@ -8,7 +8,10 @@ import { deleteUser } from "@/lib/admin/actions/user";
 const DeleteUser = ({ id }: { id: string }) => {
   const handleUserDelete = async (id: string) => {
     try {
-      const result = await deleteUser({ userId: id });
+      const result = await deleteUser({ userId: id }); // Call the deleteUser action with the user id
+      // The deleteUser action is expected to return a result object with a success property and a message property.
+      // If the deletion is successful, it shows a success toast message;
+      // otherwise, it shows an error toast message indicating the failure reason.
 
       if (result.success) {
         toast({

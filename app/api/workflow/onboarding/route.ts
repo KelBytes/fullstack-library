@@ -16,6 +16,8 @@ const THREE_DAYS_IN_MS = 3 * ONE_DAY_IN_MS;
 const THIRTY_DAYS_IN_MS = 30 * ONE_DAY_IN_MS;
 
 const getUserState = async (email: string): Promise<UserState> => {
+  // Check if the user exists in the database
+  // and determine their last activity date to classify them as active or non-active
   const user = await db
     .select()
     .from(usersTable)
@@ -39,9 +41,9 @@ const getUserState = async (email: string): Promise<UserState> => {
 }; //Check user's last activity date and compare with today to determine if user is active
 
 export const { POST } = serve<InitialData>(async (context) => {
-  const { email, fullName } = context.requestPayload;
+  const { email, fullName } = context.requestPayload; // Extract email and fullName from the request payload
 
-  //Welcome Email
+  // Validate the input data
   await context.run("new-signup", async () => {
     await sendEmail({
       email,
@@ -50,7 +52,7 @@ export const { POST } = serve<InitialData>(async (context) => {
     });
   });
 
-  await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3);
+  await context.sleep("wait-for-3-days", 60 * 60 * 24 * 3); // Wait for 3 days before checking the user's state
 
   while (true) {
     const state = await context.run("check-user-state", async () => {
@@ -75,6 +77,6 @@ export const { POST } = serve<InitialData>(async (context) => {
       });
     }
 
-    await context.sleep("wait-for-1-month", 60 * 60 * 24 * 30);
+    await context.sleep("wait-for-1-month", 60 * 60 * 24 * 30); // Wait for 30 days before checking the user's state again
   }
 });
