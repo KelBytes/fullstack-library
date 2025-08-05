@@ -48,8 +48,9 @@ const BookOverview = async ({
       <div className="flex flex-1 flex-col gap-5">
         <h1
           className={cn(
-            !admin ? "text-white text-5xl font-semibold md:text-7xl" : "",
-            "text-black text-5xl font-semibold md:text-7xl"
+            !admin
+              ? "text-white text-5xl font-semibold md:text-7xl"
+              : "text-black text-5xl font-semibold md:text-7xl"
           )}
         >
           {title}
@@ -57,15 +58,23 @@ const BookOverview = async ({
 
         <div className={cn("book-info", admin && "text-black")}>
           <p>
-            By <span className={"font-semibold text-light-200"}>{author}</span>
+            By{" "}
+            <span
+              className={cn(
+                admin ? "text-gray-700" : "text-light-200",
+                "font-semibold"
+              )}
+            >
+              {author}
+            </span>
           </p>
 
           <p>
             Category{" "}
             <span
               className={cn(
-                admin && "text-black",
-                "font-semibold text-light-200"
+                admin ? "text-gray-700" : "text-light-200",
+                "font-semibold"
               )}
             >
               {genre}
@@ -78,12 +87,28 @@ const BookOverview = async ({
           </div>
         </div>
 
-        <div className="book-copies">
-          <p className={cn(admin && "text-black")}>
-            Total Books: <span>{totalCopies}</span>
+        <div className="flex flex-row flex-wrap gap-4 mt-1">
+          <p className={cn(admin ? "text-black" : "text-light-100", "text-xl")}>
+            Total Books:{" "}
+            <span
+              className={cn(
+                admin ? "text-gray-700" : "text-primary",
+                "ml-2 font-semibold"
+              )}
+            >
+              {totalCopies}
+            </span>
           </p>
-          <p>
-            Available Books: <span>{availableCopies}</span>
+          <p className={cn(admin ? "text-black" : "text-light-100", "text-xl")}>
+            Available Books:{" "}
+            <span
+              className={cn(
+                admin ? "text-gray-700" : "text-primary",
+                "ml-2 font-semibold"
+              )}
+            >
+              {availableCopies}
+            </span>
           </p>
         </div>
 
