@@ -6,6 +6,7 @@ import Link from "next/link";
 import { eq } from "drizzle-orm";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { getInitials } from "@/lib/utils";
+import BookStatusSelect from "./BookStatusSelect";
 
 // This component displays borrow requests in a table format.
 // It fetches borrow requests from the database, including book details and user information.
@@ -38,7 +39,8 @@ const BorrowRequests = async ({ fields }: { fields: Array<string> }) => {
     })
     .from(borrowRecords)
     .innerJoin(books, eq(borrowRecords.bookId, books.id))
-    .innerJoin(usersTable, eq(borrowRecords.userId, usersTable.id));
+    .innerJoin(usersTable, eq(borrowRecords.userId, usersTable.id))
+    .where(eq(borrowRecords.status, "BORROWED"));
 
   return (
     <div className="md:h-[60vh] 2xl:h-[80vh] overflow-auto">
@@ -104,7 +106,9 @@ const BorrowRequests = async ({ fields }: { fields: Array<string> }) => {
                   </div>
                 </td>
 
-                <td>{status}</td>
+                <td>
+                  <BookStatusSelect status={status} bookId={id} />
+                </td>
                 <td>{borrowedDate.toDateString()}</td>
                 <td>{returnDate}</td>
                 <td>{dueDate}</td>

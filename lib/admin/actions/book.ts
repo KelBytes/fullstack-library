@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/app/database/drizzle";
-import { books } from "@/app/database/schema";
+import { books, borrowRecords } from "@/app/database/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -62,6 +62,33 @@ export const updateBook = async (params: BookParams, id?: string) => {
       success: true,
       message: "Book has been successfully updated",
       data: JSON.parse(JSON.stringify(updatedBook[0])),
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "An error occured while updating the book",
+    };
+  }
+};
+
+export const changeBorrowStatus = async (params: BorrowBookParams) => {
+  try {
+    if (params.status !== "RETURNED" && params.status !== "BORROWED") {
+      throw new Error(
+        'Invalid status value. Must be "RETURNED" or "BORROWED".'
+      );
+    }
+    await db
+      .update(borrowRecords)
+      .set({ status: params.status })
+      .where(eq(borrowRecords.id, params.bookId));
+
+    revalidatePath("/");
+
+    return {
+      success: true,
+      message: "Book has been successfully updated",
     };
   } catch (error) {
     console.log(error);

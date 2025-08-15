@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import BookList from "@/components/BookList";
 import ProfileCard from "@/components/ProfileCard";
 import { cn } from "@/lib/utils";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 import React from "react";
 
@@ -36,7 +36,12 @@ const Page = async () => {
     })
     .from(borrowRecords)
     .leftJoin(books, eq(books.id, borrowRecords.bookId))
-    .where(eq(borrowRecords.userId, session?.user?.id))) as Book[]; // Type assertion to Book[]
+    .where(
+      and(
+        eq(borrowRecords.userId, session?.user?.id),
+        eq(borrowRecords.status, "BORROWED")
+      )
+    )) as Book[]; // Type assertion to Book[]
 
   return (
     <div

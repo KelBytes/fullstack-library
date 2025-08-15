@@ -39,7 +39,8 @@ interface BookParams {
 
 interface BorrowBookParams {
   bookId: string;
-  userId: string;
+  userId?: string;
+  status?: string;
 }
 
 interface deleteBookParams {
@@ -49,4 +50,5 @@ interface deleteBookParams {
 interface userParams {
   userId: string;
   role?: "ADMIN" | "USER";
+  status?: "BORROWED" | "RETURNED";
 }
