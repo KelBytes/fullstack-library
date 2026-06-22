@@ -1,4 +1,4 @@
-export async function GET(request: Request) {
+export async function GET() {
   const success = { success: true, message: "Health check successful" };
   return new Response(JSON.stringify(success), {
     status: 200,
