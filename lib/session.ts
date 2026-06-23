@@ -24,11 +24,18 @@ export async function decrypt(session: string | undefined = "") {
   }
 }
 
-import "server-only";
-
 export async function createAccessToken(payload: SessionPayload) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const accessToken = await encrypt(payload);
 
   return { accessToken, expiresAt };
+}
+
+export async function verifyAccessToken(token: string) {
+  const userClaims = await decrypt(token);
+
+  if (!userClaims?.userId) {
+    return { isAuth: false };
+  }
+  return { isAuth: true, userId: userClaims?.userId };
 }
