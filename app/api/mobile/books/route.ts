@@ -6,6 +6,8 @@ export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
     const token = authHeader?.split(" ")[1]; // strips "Bearer "
+    console.log("Auth header:", authHeader);
+    console.log("Token:", token);
 
     const { isAuth } = await verifyAccessToken(token ?? "");
 
@@ -26,6 +28,7 @@ export async function GET(request: Request) {
       },
       {} as Record<string, typeof booksByGenre>,
     );
+    1;
 
     const result = Object.entries(grouped).map(([genre, books]) => ({
       genre,
