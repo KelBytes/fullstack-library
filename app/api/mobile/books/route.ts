@@ -6,8 +6,6 @@ export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
     const token = authHeader?.split(" ")[1]; // strips "Bearer "
-    console.log("Auth header:", authHeader);
-    console.log("Token:", token);
 
     const { isAuth } = await verifyAccessToken(token ?? "");
 
